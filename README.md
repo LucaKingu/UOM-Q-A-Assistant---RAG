@@ -9,4 +9,4 @@
 ### 6 > 'pip install -r requirements.txt' ###
 ---
 ## .env.example ##
-### The external environment variables must be declared in this file to be able to access external resources ###
+### The external environment variables must be declared in this file to be able to access external resources - Make sure to update main.py to configure for APIs?###
