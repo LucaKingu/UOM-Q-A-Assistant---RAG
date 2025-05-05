@@ -1,33 +1,33 @@
-# Core ML/NLP
+#Core ML/NLP
 transformers==4.38.2
 sentence-transformers==2.2.2
 torch>=2.0.0
 
-# Embedding & Vector Search
+#Embedding & Vector Search
 weaviate-client==3.25.4
 faiss-cpu==1.7.4
 
-# Web Scraping
+#Web Scraping
 playwright==1.43.0
 beautifulsoup4==4.12.3
 requests==2.31.0
 
-# Data Processing
+#Data Processing
 pandas==2.2.2
 numpy==1.26.4
 
-# LLM Tools & Retrieval
+#LLM Tools & Retrieval
 langchain==0.1.10
 
-# Frontend
+#Frontend
 streamlit==1.34.0
 
-# Environment & Utilities
+#Environment & Utilities
 python-dotenv==1.0.1
 tqdm==4.66.2
 
-# Testing
+#Testing
 pytest==8.1.1
 
-# Optional: Jupyter support
+#Jupyter support
 jupyterlab==4.1.5
