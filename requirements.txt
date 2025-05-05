@@ -29,5 +29,5 @@ tqdm==4.66.2
 #Testing
 pytest==8.1.1
 
-#Jupyter support
+#Jupyter support (If you will be using notebooks for testing)
 jupyterlab==4.1.5
