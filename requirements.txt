@@ -4,7 +4,7 @@ sentence-transformers==2.2.2
 torch>=2.0.0
 
 #Embedding & Vector Search
-weaviate-client==3.25.4
+weaviate-client==3.25.3
 faiss-cpu==1.7.4
 
 #Web Scraping
