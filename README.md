@@ -2,7 +2,7 @@
 
 ## .env.example ##
 ### The external environment variables must be declared in this file to be able to access external resources ###
-
+---
 ## Init python env and download required packages ##
 ### 1 > Open terminal in root directory ###
 ### 2 > 'python -m venv venv'###
