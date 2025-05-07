@@ -1,5 +1,8 @@
 import os
+import asyncio
 from dotenv import load_dotenv
+from scraping.crawler import crawl
+
 
 load_dotenv()
 
@@ -9,13 +12,11 @@ weaviate_URL = os.getenv("WEAVIATE_URL")
 huggingface_api_key = os.getenv("HUGGINGFACE_API_TOKEN")
 
 app_port = os.getenv("PORT")
+uom_url = "https://www.um.edu.mt/"
 
 
 def main():
-    print("Weaviate API Key:", weaviate_api_key)
-    print("Weaviate URL:", weaviate_URL)
-    print("HuggingFace API Token:", huggingface_api_key)
-    print("App Port:", app_port)
+    asyncio.run(crawl(uom_url))
 
 
 if __name__ == '__main__':
