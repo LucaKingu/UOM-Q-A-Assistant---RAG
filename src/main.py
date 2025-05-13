@@ -11,7 +11,7 @@ weaviate_URL = os.getenv("WEAVIATE_URL")
 
 huggingface_api_key = os.getenv("HUGGINGFACE_API_TOKEN")
 
-app_port = os.getenv("PORT")
+app_port = os.getenv("PORT")  # May not need this
 uom_url = "https://www.um.edu.mt/"
 
 
