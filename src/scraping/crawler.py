@@ -13,7 +13,7 @@ async def scrape_page(page, url):
     content = await page.content()
 
     # home will be the uom_url
-    safe_name = urlparse(url).path._replace("/", "_").strip("_") or "home"
+    safe_name = urlparse(url).path.replace("/", "_").strip("_") or "home"
     # Should already exist with structure
     os.makedirs("Data/Raw", exist_ok=True)
     with open(f"Data/Raw/{safe_name}.json", "w", encoding="utf-8") as f:
@@ -23,10 +23,13 @@ async def scrape_page(page, url):
     links = []
     for a in anchors:
         href = await a.get_attribute("href")
-        if href:
-            full_url = urljoin(url, href)
-            if allowed_domain in full_url and full_url not in visited:
-                links.append(full_url)
+
+        # mailto is a protocol,not a domain -  which is why it gets error scraping
+        if href and href.startswith("mailto:"):
+            continue
+        full_url = urljoin(url, href)
+        if allowed_domain in full_url and full_url not in visited:
+            links.append(full_url)
     return links
 
 
