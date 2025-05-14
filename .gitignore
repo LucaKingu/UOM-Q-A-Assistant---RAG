@@ -1,3 +1,7 @@
+#Scraped json data from the UoM
+/src/Data/*
+!/src/Data/.gitkeep
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
