@@ -39,26 +39,53 @@ async def scrape_page(page, url):
     for selector in content_selectors:
         element = await page.query_selector(selector)
         if element:
-            article_content = await element.inner_text()
+            article_content = await element.inner_html()
             break
 
     # If no content found, fallback to extracting text from all <p> tags
-    if not article_content:
-        paragraphs = await page.query_selector_all("p")
-        article_content = "\n".join([await p.inner_text() for p in paragraphs])
+        if not article_content:
+            tags = [
+                "p",          # Paragraphs
+                "strong",     # Emphasis (bold)
+                "em",         # Emphasis (italic)
+                "table", "thead", "tbody", "tr", "th", "td",  # Tabular content
+                "ul", "ol", "li",  # Lists
+                "a",          # Anchor tags (text + links)
+                "h1", "h2", "h3", "h4", "h5", "h6",  # Headings
+                "blockquote",  # Quotes
+                "figcaption",  # Captions under images
+                "article", "section", "main"  # Structural blocks for semantic grouping
+            ]
 
-    # Optional: Remove unwanted whitespace or clean up the content
-    article_content = article_content.strip() if article_content else "No content found"
+            ignore_class = [
+                "dropdown-menu",
+                "mega-dropdown-menu",
+                "UM-Hover",
+                "UM-MobLink",
+                "UM-MainMenu-Sub"
+            ]
 
-    data = {
-        "url": url,
-        "title": title,
-        "headings": [await h.inner_text() for h in headings],
-        "links": links,
-        "description": description_content,  # Meta description only if found
-        # Extracted content (fallbacks included)
-        "content": article_content
-    }
+            html_parts = []
+            for tag in tags:
+                elements = await page.query_selector_all(tag)
+                for el in elements:
+                    class_name = await el.get_attribute("class") or ""
+                    if any(cls in class_name for cls in ignore_class):
+                        continue  # Skip elements with unwanted classes
+                    html = await el.inner_html()
+                    html_parts.append(f"<{tag}>{html}</{tag}>")
+            article_content = "\n".join(html_parts)
+
+        article_content = article_content.strip() if article_content else "No content found"
+
+        data = {
+            "url": url,
+            "title": title,
+            "headings": [await h.inner_text() for h in headings],
+            "links": links,
+            "description": description_content,  # Meta description only if found
+            "content": article_content
+        }
 
     # home will be the uom_url
     safe_name = urlparse(url).path.replace("/", "_").strip("_") or "home"
